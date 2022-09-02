@@ -9,14 +9,17 @@ class User(AbstractUser):
         (ADMIN, 'Administrator'),
         (USER, 'User'),
     ]
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'username']
+    USERNAME_FIELD = 'email'
 
     email = models.EmailField(
-        verbose_name='Email',
-        unique=True,
+        verbose_name='Email address',
+        unique=True
     )
+
     role = models.CharField(
         verbose_name='Role',
-        max_length=50,
+        max_length=15,
         choices=ROLES,
         default=USER)
 
