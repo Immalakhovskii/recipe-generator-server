@@ -131,6 +131,10 @@ dmypy.json
 # .idea
 .idea
 
+# static and media directories
+static/
+media/
+
 # REST_client requests file
 REST_client_requests.http
 
