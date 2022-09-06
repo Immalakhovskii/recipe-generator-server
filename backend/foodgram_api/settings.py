@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SECRET_KEY = os.getenv('SECRET_KEY', default='comlex_50_symbols_key')
+SECRET_KEY = os.getenv('SECRET_KEY', default='complex_50_symbols_key')
 DEBUG = True  # os.getenv('DEBUG', default=False)
 
 ALLOWED_HOSTS = ['*']
@@ -93,6 +93,13 @@ REST_FRAMEWORK = {
 DJOSER = {
     'LOGIN_FIELD': 'email',
     'HIDE_USERS': False,
+    'SERIALIZERS': {
+        'user_create': 'users.serializers.CustomUserCreateSerializer',
+    },
+    'PERMISSIONS': {
+        'user_list': ['rest_framework.permissions.AllowAny'],
+        'user': ['rest_framework.permissions.IsAuthenticated'],
+    }
 }
 
 LANGUAGE_CODE = 'en-us'

@@ -15,11 +15,21 @@ class CustomUser(AbstractUser):
     USERNAME_FIELD = 'email'
 
     email = models.EmailField(
-        verbose_name='Email address',
+        verbose_name='email address',
         unique=True
     )
+    first_name = models.CharField(
+        verbose_name='first name',
+        max_length=150,
+        blank=False
+    )
+    last_name = models.CharField(
+        verbose_name='last name',
+        max_length=150,
+        blank=False
+    )
     role = models.CharField(
-        verbose_name='Role',
+        verbose_name='role',
         max_length=15,
         choices=ROLES,
         default=USER)
@@ -29,7 +39,7 @@ class CustomUser(AbstractUser):
         return self.role == self.ADMIN
 
     def __str__(self):
-        return self.username
+        return f'{self.first_name} {self.username}'
 
 
 class Subscription(models.Model):
@@ -37,24 +47,24 @@ class Subscription(models.Model):
         CustomUser,
         on_delete=models.CASCADE,
         related_name='subscriber',
-        verbose_name='Subscriber',
+        verbose_name='subscriber',
     )
     subscription = models.ForeignKey(
         CustomUser,
         on_delete=models.CASCADE,
         related_name='subscription',
-        verbose_name='Subscription',
+        verbose_name='subscription',
     )
 
     class Meta:
         constraints = [
             UniqueConstraint(
                 fields=['subscriber', 'subscription'],
-                name='unique_subscription',
+                name='subscription_must_be_unique',
             ),
             CheckConstraint(
                 check=Q(_negated=True, subscriber=F('subscription')),
-                name='self_subscription',
+                name='self_subscription_prohibited',
             ),
         ]
 
