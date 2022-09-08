@@ -60,11 +60,11 @@ class Subscription(models.Model):
         constraints = [
             UniqueConstraint(
                 fields=['subscriber', 'subscription'],
-                name='subscription_must_be_unique',
+                name='subscription must be unique',
             ),
             CheckConstraint(
                 check=Q(_negated=True, subscriber=F('subscription')),
-                name='self_subscription_prohibited',
+                name='self subscription prohibited',
             ),
         ]
 

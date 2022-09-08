@@ -138,5 +138,6 @@ media/
 # REST_client requests file
 REST_client_requests.http
 
-# Dump file
+# Dump files
 dump.txt
+dump.py

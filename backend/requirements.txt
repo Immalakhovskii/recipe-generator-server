@@ -5,3 +5,4 @@ djoser==2.1.0
 pytz==2022.2.1
 sqlparse==0.4.2
 python-dotenv==0.20.0
+Pillow==9.2.0
