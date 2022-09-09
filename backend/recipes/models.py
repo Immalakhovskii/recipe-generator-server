@@ -134,3 +134,47 @@ class IngredientAmount(models.Model):
     def __str__(self):
         return (f'{self.amount} {self.ingredient.measurement_unit}'
                 f' of {self.ingredient.name}')
+
+
+class Favorite(models.Model):
+    fan = models.ForeignKey(
+        CustomUser,
+        on_delete=models.CASCADE,
+        related_name='fan',
+        verbose_name='subscriber',
+    )
+    favorite_recipe = models.ForeignKey(
+        Recipe,
+        on_delete=models.CASCADE,
+        related_name='favorite_recipe',
+        verbose_name='recipe to favorites',
+    )
+
+    class Meta:
+        constraints = [
+            UniqueConstraint(
+                fields=['fan', 'favorite_recipe'],
+                name='user can favorite recipe just once',
+            ),
+        ]
+
+    def __str__(self):
+        return f'{self.fan} favorited {self.favorite_recipe}'
+
+
+class ShoppingCartItem(models.Model):
+    client = models.ForeignKey(
+        CustomUser,
+        on_delete=models.CASCADE,
+        related_name='client',
+        verbose_name='client',
+    )
+    recipe_to_cart = models.ForeignKey(
+        Recipe,
+        on_delete=models.CASCADE,
+        related_name='recipe_to_cart',
+        verbose_name='recipe to cart',
+    )
+
+    def __str__(self):
+        return f'{self.client} added to shopping cart {self.recipe_to_cart}'

@@ -1,8 +1,9 @@
 from rest_framework import serializers
 from drf_extra_fields.fields import Base64ImageField
 
-from recipes.models import Tag, Ingredient, Recipe, IngredientAmount
 from users.serializers import CustomUserSerializer
+from recipes.models import (Tag, Ingredient, Recipe, IngredientAmount,
+                            Favorite, ShoppingCartItem)
 
 
 class TagSerializer(serializers.ModelSerializer):
@@ -32,11 +33,31 @@ class RecipeReadSerializer(serializers.ModelSerializer):
     author = CustomUserSerializer(read_only=True)
     ingredients = IngredientAmountSerializer(read_only=True, many=True)
     image = Base64ImageField()
-    # is_favorited = serializers.SerializerMethodField()
-    # is_in_shopping_cart = serializers.SerializerMethodField()
+    is_favorited = serializers.SerializerMethodField()
+    is_in_shopping_cart = serializers.SerializerMethodField()
 
     class Meta:
         model = Recipe
         fields = ('id', 'tags', 'author', 'ingredients', 'name',
-                  'text', 'image', 'cooking_time')
-        # is_favorited, is_in_shopping_cart
+                  'text', 'image', 'cooking_time',
+                  'is_favorited', 'is_in_shopping_cart')
+
+    def get_is_favorited(self, obj):
+        user = None
+        request = self.context.get('request')
+        if request and hasattr(request, 'user'):
+            user = request.user
+        if user is None or user.is_anonymous:
+            return False
+        return Favorite.objects.filter(
+            fan=user, favorite_recipe=obj).exists()
+
+    def get_is_in_shopping_cart(self, obj):
+        user = None
+        request = self.context.get('request')
+        if request and hasattr(request, 'user'):
+            user = request.user
+        if user is None or user.is_anonymous:
+            return False
+        return ShoppingCartItem.objects.filter(
+            client=user, recipe_to_cart=obj).exists()
