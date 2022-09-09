@@ -24,5 +24,7 @@ class CustomUserSerializer(UserSerializer):
         request = self.context.get('request')
         if request and hasattr(request, 'user'):
             user = request.user
+        if user.is_anonymous:
+            return False
         return (Subscription.objects
                 .filter(subscriber=user, subscription=obj).exists())
