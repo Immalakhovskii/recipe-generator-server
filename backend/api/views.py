@@ -1,8 +1,9 @@
-from rest_framework import viewsets, filters
+from rest_framework import viewsets, filters, permissions
 
-from recipes.models import Tag, Ingredient, Recipe
+from recipes.models import Tag, Ingredient, Recipe, IngredientAmount
 from .serializers import (
-    TagSerializer, IngredientSerializer, RecipeReadSerializer
+    TagSerializer, IngredientSerializer, RecipeGetSerializer,
+    RecipePostSerializer
 )
 
 
@@ -20,4 +21,25 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
 
 class RecipeViewSet(viewsets.ModelViewSet):
     queryset = Recipe.objects.all()
-    serializer_class = RecipeReadSerializer
+
+    def get_serializer_class(self):
+        if self.request.method in permissions.SAFE_METHODS:
+            return RecipeGetSerializer
+        return RecipePostSerializer
+
+    def create_ingredients(self, ingredients, recipe):
+        for ingredient in ingredients:
+            ingredient_id = ingredient['id']
+            amount = ingredient['amount']
+            IngredientAmount.objects.bulk_create(
+                [IngredientAmount(
+                    ingredient=ingredient_id,
+                    recipe=recipe, amount=amount
+                )]
+            )
+
+    def perform_create(self, serializer):
+        author = self.request.user
+        ingredients = serializer.validated_data.pop('ingredients')
+        recipe = serializer.save(author=author)
+        self.create_ingredients(ingredients, recipe)

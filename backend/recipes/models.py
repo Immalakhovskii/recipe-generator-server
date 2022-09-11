@@ -80,6 +80,7 @@ class Recipe(models.Model):
     )
     text = models.TextField(
         verbose_name='recipe description',
+        unique=True,
         blank=False
     )
     image = models.ImageField(
@@ -137,13 +138,13 @@ class IngredientAmount(models.Model):
 
 
 class Favorite(models.Model):
-    fan = models.ForeignKey(
+    user = models.ForeignKey(
         CustomUser,
         on_delete=models.CASCADE,
         related_name='fan',
         verbose_name='subscriber',
     )
-    favorite_recipe = models.ForeignKey(
+    recipe = models.ForeignKey(
         Recipe,
         on_delete=models.CASCADE,
         related_name='favorite_recipe',
@@ -153,23 +154,23 @@ class Favorite(models.Model):
     class Meta:
         constraints = [
             UniqueConstraint(
-                fields=['fan', 'favorite_recipe'],
+                fields=['user', 'recipe'],
                 name='user can favorite recipe just once',
             ),
         ]
 
     def __str__(self):
-        return f'{self.fan} favorited {self.favorite_recipe}'
+        return f'{self.user} favorited {self.recipe}'
 
 
 class ShoppingCartItem(models.Model):
-    client = models.ForeignKey(
+    user = models.ForeignKey(
         CustomUser,
         on_delete=models.CASCADE,
         related_name='client',
         verbose_name='client',
     )
-    recipe_to_cart = models.ForeignKey(
+    recipe = models.ForeignKey(
         Recipe,
         on_delete=models.CASCADE,
         related_name='recipe_to_cart',
@@ -177,4 +178,4 @@ class ShoppingCartItem(models.Model):
     )
 
     def __str__(self):
-        return f'{self.client} added to shopping cart {self.recipe_to_cart}'
+        return f'{self.user} added to shopping cart {self.recipe}'
