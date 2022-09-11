@@ -43,3 +43,16 @@ class RecipeViewSet(viewsets.ModelViewSet):
         ingredients = serializer.validated_data.pop('ingredients')
         recipe = serializer.save(author=author)
         self.create_ingredients(ingredients, recipe)
+
+    def perform_update(self, serializer):
+        data = serializer.validated_data
+        ingredients = data.pop('ingredients')
+        tags = data.pop('tags')
+        print(tags)
+        instance = serializer.save()
+        if ingredients:
+            instance.ingredients.clear()
+            self.create_ingredients(ingredients, instance)
+        if tags:
+            instance.tags.set(tags)
+        instance.tags.clear()

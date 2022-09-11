@@ -101,7 +101,7 @@ DJOSER = {
     'PERMISSIONS': {
         'user_list': ['rest_framework.permissions.AllowAny'],
         'user': ['rest_framework.permissions.IsAuthenticated'],
-        'user_delete': ['api.permissions.IsAdmin'],
+        'user_delete': ['users.permissions.IsAdmin'],
     }
 }
 

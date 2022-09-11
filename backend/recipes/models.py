@@ -61,17 +61,20 @@ class Recipe(models.Model):
         on_delete=models.CASCADE,
         related_name='author',
         verbose_name='recipe author',
+        blank=False
     )
     ingredients = models.ManyToManyField(
         Ingredient,
         related_name='ingredients',
         verbose_name='ingredients for recipe',
-        through='IngredientAmount'
+        through='IngredientAmount',
+        blank=False
     )
     tags = models.ManyToManyField(
         Tag,
         related_name='tag',
         verbose_name='recipe tags',
+        blank=True
     )
     name = models.CharField(
         verbose_name='recipe name',
@@ -107,12 +110,14 @@ class IngredientAmount(models.Model):
         on_delete=models.CASCADE,
         related_name='ingredient',
         verbose_name='ingredient',
+        blank=False
     )
     recipe = models.ForeignKey(
         Recipe,
         on_delete=models.CASCADE,
         related_name='recipe',
         verbose_name='recipe',
+        blank=False
     )
     amount = models.PositiveSmallIntegerField(
         verbose_name='amount of an ingredient',
@@ -143,12 +148,14 @@ class Favorite(models.Model):
         on_delete=models.CASCADE,
         related_name='fan',
         verbose_name='subscriber',
+        blank=False
     )
     recipe = models.ForeignKey(
         Recipe,
         on_delete=models.CASCADE,
         related_name='favorite_recipe',
         verbose_name='recipe to favorites',
+        blank=False
     )
 
     class Meta:
@@ -169,12 +176,14 @@ class ShoppingCartItem(models.Model):
         on_delete=models.CASCADE,
         related_name='client',
         verbose_name='client',
+        blank=False
     )
     recipe = models.ForeignKey(
         Recipe,
         on_delete=models.CASCADE,
         related_name='recipe_to_cart',
         verbose_name='recipe to cart',
+        blank=False
     )
 
     def __str__(self):

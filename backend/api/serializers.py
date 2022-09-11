@@ -65,7 +65,8 @@ class IngredientAmountPostSerializer(serializers.ModelSerializer):
 
 
 class RecipePostSerializer(serializers.ModelSerializer):
-    tags = TagSerializer(many=True, read_only=True)
+    # tags = serializers.PrimaryKeyRelatedField(
+    #    queryset=Tag.objects.all(), many=True)
     author = CustomUserSerializer(read_only=True)
     ingredients = IngredientAmountPostSerializer(many=True)
     image = Base64ImageField()
