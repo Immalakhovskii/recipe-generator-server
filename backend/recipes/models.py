@@ -167,7 +167,7 @@ class Favorite(models.Model):
         ]
 
     def __str__(self):
-        return f'{self.user} favorited {self.recipe}'
+        return f'{self.recipe} / {self.user} favorites'
 
 
 class ShoppingCartItem(models.Model):
@@ -187,4 +187,4 @@ class ShoppingCartItem(models.Model):
     )
 
     def __str__(self):
-        return f'{self.user} added to shopping cart {self.recipe}'
+        return f'{self.recipe} / {self.user} shopping cart'
