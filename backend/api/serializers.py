@@ -41,19 +41,21 @@ class RecipeGetSerializer(serializers.ModelSerializer):
                   'text', 'image', 'cooking_time',
                   'is_favorited', 'is_in_shopping_cart')
 
-    def get_is_favorited(self, obj):
+    def get_is_favorited(self, obj, Model=Favorite):
         request = self.context.get('request')
         if not request or request.user.is_anonymous:
             return False
-        return Favorite.objects.filter(
+        return Model.objects.filter(
             user=request.user, recipe=obj).exists()
 
     def get_is_in_shopping_cart(self, obj):
-        request = self.context.get('request')
-        if not request or request.user.is_anonymous:
-            return False
-        return ShoppingCartItem.objects.filter(
-            user=request.user, recipe=obj).exists()
+        return RecipeGetSerializer.get_is_favorited(
+            self, obj, Model=ShoppingCartItem)
+        # request = self.context.get('request')
+        # if not request or request.user.is_anonymous:
+        #    return False
+        # return ShoppingCartItem.objects.filter(
+        #    user=request.user, recipe=obj).exists()
 
 
 class IngredientAmountPostSerializer(serializers.ModelSerializer):

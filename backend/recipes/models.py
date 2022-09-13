@@ -186,5 +186,13 @@ class ShoppingCartItem(models.Model):
         blank=False
     )
 
+    class Meta:
+        constraints = [
+            UniqueConstraint(
+                fields=['user', 'recipe'],
+                name='user can add recipe to shopping cart just once',
+            ),
+        ]
+
     def __str__(self):
         return f'{self.recipe} / {self.user} shopping cart'
