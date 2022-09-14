@@ -128,9 +128,27 @@ class ShoppingCartViewSet(FavoriteViewSet):
 
 
 class DownloadShoppingList(RetrieveViewSet):
-    # permission_classes = [IsAuthenticated, ]
+    permission_classes = [IsAuthenticated, ]
 
-    def download_shopping_cart(self, request):
+    def create_shopping_list(self, request):
+        shopping_dict = {}
+        recipes = (Recipe.objects.prefetch_related('ingredients')
+                   .filter(recipe_to_cart__user_id=request.user.id))
+        for recipe in recipes:
+            ingredients = recipe.ingredients.all()
+            for ingredient in ingredients:
+                amount = (
+                    IngredientAmount.objects
+                    .filter(ingredient=ingredient, recipe=recipe)[0].amount)
+                ingredient_with_measure = (str(ingredient.name) + ' / '
+                                           + str(ingredient.measurement_unit))
+                if ingredient_with_measure in shopping_dict:
+                    shopping_dict[ingredient_with_measure] += amount
+                else:
+                    shopping_dict[ingredient_with_measure] = amount
+        return shopping_dict
+
+    def download_shopping_list(self, request):
         reportlab.rl_config.TTFSearchPath.append(
             str(settings.BASE_DIR)[:-TO_UPPER_DIRECTORY] + '\\data\\')
         pdfmetrics.registerFont(TTFont(
@@ -138,16 +156,26 @@ class DownloadShoppingList(RetrieveViewSet):
         buffer = io.BytesIO()
         pdf = canvas.Canvas(buffer, pagesize=A4)
         pdf.setFont(psfontname='ClearSans', size=12)
+        left_margin = 100
+        bottom_margin = 700
 
-        recipes = (Recipe.objects.prefetch_related('ingredients')
-                   .filter(recipe_to_cart__user_id=request.user.id))
-        print(recipes)
-        print(recipes[0].ingredients.all()[0])
+        shopping_list = self.create_shopping_list(request)
+        if not shopping_list:
+            pdf.drawString(left_margin - 25, bottom_margin + 40,
+                           'Shopping List is empty. Add some'
+                           ' recipes to shopping cart:)')
+        else:
+            pdf.drawString(left_margin - 25, bottom_margin + 40,
+                           'Shopping List')
+            for key in shopping_list:
+                pdf.drawString(left_margin, bottom_margin,
+                               f'{key} :   {shopping_list[key]}')
+                bottom_margin -= 20
+                if bottom_margin == 100:
+                    bottom_margin = 700
 
-        pdf.drawString(75, 740, 'Shopping List')
-        pdf.drawString(100, 700, 'First Entry...')
         pdf.showPage()
         pdf.save()
         buffer.seek(0)
         return FileResponse(buffer, as_attachment=True,
-                            filename='Shopping_cart.pdf')
+                            filename='Shopping_list.pdf')
