@@ -8,11 +8,14 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 
 from django.shortcuts import get_object_or_404
 from django.http import FileResponse
+from django_filters.rest_framework import DjangoFilterBackend
+
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import A4
 
+from .filters import RecipeFilter
 from .mixins import CreateDestroyViewSet, RetrieveViewSet
 from users.permissions import IsAuthor
 from recipes.models import (Tag, Ingredient, Recipe, IngredientAmount,
@@ -38,6 +41,8 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
 
 class RecipeViewSet(viewsets.ModelViewSet):
     queryset = Recipe.objects.all()
+    filter_backends = (DjangoFilterBackend,)
+    filterset_class = RecipeFilter
 
     def get_permissions(self):
         if self.request.method == 'GET':

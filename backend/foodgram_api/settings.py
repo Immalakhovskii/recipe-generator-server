@@ -5,7 +5,7 @@ load_dotenv()
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.getenv('SECRET_KEY', default='complex_50_symbols_key')
-DEBUG = True  # os.getenv('DEBUG', default=False)
+DEBUG = os.getenv('DEBUG', default=False)
 
 ALLOWED_HOSTS = ['*']
 
@@ -18,6 +18,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
+    'django_filters',
     'djoser',
     'api',
     'recipes',
@@ -95,6 +96,7 @@ REST_FRAMEWORK = {
 DJOSER = {
     'LOGIN_FIELD': 'email',
     'HIDE_USERS': False,
+    'PASSWORD_RESET_CONFIRM_URL': 'dashboard/auth/password/reset/{uid}/{token}/',
     'SERIALIZERS': {
         'user_create': 'users.serializers.CustomUserCreateSerializer',
     },
