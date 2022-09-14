@@ -1,8 +1,8 @@
-import django_filters as filters
+from django_filters import rest_framework as filters
 from recipes.models import Recipe, Tag
 
 
-class RecipeFilter(filters.Filterset):
+class RecipeFilter(filters.FilterSet):
     author = filters.NumberFilter(
         field_name='author__id',
         lookup_expr='exact',

@@ -1,8 +1,8 @@
 from django.contrib import admin
 
 from .forms import AtLeastOneFormSet
-from .models import (Tag, Ingredient, IngredientAmount, Recipe, Favorite,
-                     Favorite, ShoppingCartItem)
+from .models import (Favorite, Ingredient, IngredientAmount, Recipe,
+                     ShoppingCartItem, Tag)
 
 
 class IngredientInline(admin.TabularInline):

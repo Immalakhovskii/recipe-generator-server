@@ -1,9 +1,9 @@
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.db.models.constraints import UniqueConstraint
-from django.core.validators import MinValueValidator, MaxValueValidator
+from users.models import CustomUser
 
 from .validators import is_hex_code
-from users.models import CustomUser
 
 
 class Tag(models.Model):
