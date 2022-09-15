@@ -22,12 +22,11 @@ from .serializers import (IngredientSerializer, RecipeGetSerializer,
                           RecipePostSerializer, RecipeSnippetSerializer,
                           TagSerializer)
 
-TO_UPPER_DIRECTORY = 8
-
 
 class TagViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
+    pagination_class = None
 
 
 class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
@@ -35,6 +34,7 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = IngredientSerializer
     filter_backends = (filters.SearchFilter,)
     search_fields = ('^name',)
+    pagination_class = None
 
 
 class RecipeViewSet(viewsets.ModelViewSet):
@@ -153,7 +153,7 @@ class DownloadShoppingList(RetrieveViewSet):
 
     def download_shopping_list(self, request):
         reportlab.rl_config.TTFSearchPath.append(
-            str(settings.BASE_DIR)[:-TO_UPPER_DIRECTORY] + '\\data\\')
+            str(settings.BASE_DIR) + '/data/')
         pdfmetrics.registerFont(TTFont(
             'ClearSans', 'ClearSans-Regular.ttf'))
         buffer = io.BytesIO()
