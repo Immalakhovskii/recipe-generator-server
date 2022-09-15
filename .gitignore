@@ -141,3 +141,10 @@ REST_client_requests.http
 # Dump files
 dump.txt
 dump.py
+
+# csv_script.py
+csv_script.py
+
+# dirs for csv_script
+management/
+commands/
