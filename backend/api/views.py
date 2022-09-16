@@ -2,6 +2,7 @@ import io
 
 import reportlab
 from django.conf import settings
+from django.db.models import Sum
 from django.http import FileResponse
 from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
@@ -96,7 +97,7 @@ class FavoriteViewSet(CreateDestroyViewSet):
                message='Recipe already in favorites',
                *args, **kwargs):
         instance = self.get_object()
-        favorite = Favorite.objects.filter(user=request.user, recipe=instance)
+        favorite = Model.objects.filter(user=request.user, recipe=instance)
         if favorite:
             return Response(message, status=status.HTTP_400_BAD_REQUEST)
         Model.objects.create(user=request.user, recipe=instance)
@@ -134,24 +135,6 @@ class ShoppingCartViewSet(FavoriteViewSet):
 class DownloadShoppingList(RetrieveViewSet):
     permission_classes = [IsAuthenticated, ]
 
-    def create_shopping_list(self, request):
-        shopping_dict = {}
-        recipes = (Recipe.objects.prefetch_related('ingredients')
-                   .filter(recipe_to_cart__user_id=request.user.id))
-        for recipe in recipes:
-            ingredients = recipe.ingredients.all()
-            for ingredient in ingredients:
-                amount = (
-                    IngredientAmount.objects
-                    .filter(ingredient=ingredient, recipe=recipe)[0].amount)
-                ingredient_with_measure = (str(ingredient.name) + ' / '
-                                           + str(ingredient.measurement_unit))
-                if ingredient_with_measure in shopping_dict:
-                    shopping_dict[ingredient_with_measure] += amount
-                else:
-                    shopping_dict[ingredient_with_measure] = amount
-        return shopping_dict
-
     def download_shopping_list(self, request):
         reportlab.rl_config.TTFSearchPath.append(
             str(settings.BASE_DIR) + '/data/')
@@ -163,7 +146,13 @@ class DownloadShoppingList(RetrieveViewSet):
         left_margin = 100
         bottom_margin = 700
 
-        shopping_list = self.create_shopping_list(request)
+        shopping_list = (
+            IngredientAmount.objects
+            .filter(recipe__recipe_to_cart__user=request.user)
+            .values('ingredient__name', 'ingredient__measurement_unit')
+            .annotate(total_amount=Sum('amount'))
+        )
+
         if not shopping_list:
             pdf.drawString(left_margin - 25, bottom_margin + 40,
                            'Shopping List is empty. Add some'
@@ -171,9 +160,13 @@ class DownloadShoppingList(RetrieveViewSet):
         else:
             pdf.drawString(left_margin - 25, bottom_margin + 40,
                            'Shopping List')
-            for key in shopping_list:
-                pdf.drawString(left_margin, bottom_margin,
-                               f'{key} :   {shopping_list[key]}')
+            for recipe in shopping_list:
+                pdf.drawString(
+                    left_margin, bottom_margin,
+                    f'{recipe["ingredient__name"]} '
+                    f'{recipe["ingredient__measurement_unit"]} :   '
+                    f'{recipe["total_amount"]}'
+                )
                 bottom_margin -= 20
                 if bottom_margin == 100:
                     bottom_margin = 700
