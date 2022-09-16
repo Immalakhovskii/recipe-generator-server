@@ -6,6 +6,8 @@ from django.db.models import Sum
 from django.http import FileResponse
 from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
+from recipes.models import (Favorite, Ingredient, IngredientAmount, Recipe,
+                            ShoppingCartItem, Tag)
 from reportlab.lib.pagesizes import A4
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
@@ -13,9 +15,6 @@ from reportlab.pdfgen import canvas
 from rest_framework import permissions, status, viewsets
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
-
-from recipes.models import (Favorite, Ingredient, IngredientAmount, Recipe,
-                            ShoppingCartItem, Tag)
 from users.permissions import IsAuthor
 
 from .filters import IngredientSearchFilter, RecipeFilter
@@ -93,22 +92,22 @@ class FavoriteViewSet(CreateDestroyViewSet):
     def get_object(self):
         return get_object_or_404(Recipe, id=self.kwargs['recipe_id'])
 
-    def create(self, request, Model=Favorite,
+    def create(self, request, model=Favorite,
                message='Recipe already in favorites',
                *args, **kwargs):
         instance = self.get_object()
-        favorite = Model.objects.filter(user=request.user, recipe=instance)
+        favorite = model.objects.filter(user=request.user, recipe=instance)
         if favorite:
             return Response(message, status=status.HTTP_400_BAD_REQUEST)
-        Model.objects.create(user=request.user, recipe=instance)
+        model.objects.create(user=request.user, recipe=instance)
         serializer = RecipeSnippetSerializer(instance)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    def destroy(self, request, Model=Favorite,
+    def destroy(self, request, model=Favorite,
                 message='Recipe not in favorites',
                 *args, **kwargs):
         instance = self.get_object()
-        favorite = Model.objects.filter(user=request.user, recipe=instance)
+        favorite = model.objects.filter(user=request.user, recipe=instance)
         if favorite:
             favorite.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
