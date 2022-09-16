@@ -44,6 +44,7 @@ class Ingredient(models.Model):
     )
 
     class Meta:
+        ordering = ['name']
         constraints = [
             UniqueConstraint(
                 fields=['name', 'measurement_unit'],

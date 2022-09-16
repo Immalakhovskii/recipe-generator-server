@@ -16,7 +16,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from users.permissions import IsAuthor
 
-from .filters import RecipeFilter
+from .filters import RecipeFilter, IngredientSearchFilter
 from .mixins import CreateDestroyViewSet, RetrieveViewSet
 from .serializers import (IngredientSerializer, RecipeGetSerializer,
                           RecipePostSerializer, RecipeSnippetSerializer,
@@ -33,6 +33,7 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Ingredient.objects.all()
     serializer_class = IngredientSerializer
     filter_backends = (filters.SearchFilter,)
+    filterset_class = IngredientSearchFilter
     search_fields = ('^name',)
     pagination_class = None
 

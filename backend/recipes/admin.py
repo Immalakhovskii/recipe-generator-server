@@ -7,7 +7,7 @@ from .models import (Favorite, Ingredient, IngredientAmount, Recipe,
 
 class IngredientInline(admin.TabularInline):
     model = Recipe.ingredients.through
-    extra = 1
+    extra = 10
     formset = AtLeastOneFormSet
 
 
