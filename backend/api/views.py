@@ -99,7 +99,7 @@ class FavoriteViewSet(CreateDestroyViewSet):
         favorite = Favorite.objects.filter(user=request.user, recipe=instance)
         if favorite:
             return Response(message, status=status.HTTP_400_BAD_REQUEST)
-        Favorite.objects.create(user=request.user, recipe=instance)
+        Model.objects.create(user=request.user, recipe=instance)
         serializer = RecipeSnippetSerializer(instance)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -107,7 +107,7 @@ class FavoriteViewSet(CreateDestroyViewSet):
                 message='Recipe not in favorites',
                 *args, **kwargs):
         instance = self.get_object()
-        favorite = Favorite.objects.filter(user=request.user, recipe=instance)
+        favorite = Model.objects.filter(user=request.user, recipe=instance)
         if favorite:
             favorite.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
