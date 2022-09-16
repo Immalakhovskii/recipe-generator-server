@@ -163,7 +163,7 @@ class DownloadShoppingList(RetrieveViewSet):
             for recipe in shopping_list:
                 pdf.drawString(
                     left_margin, bottom_margin,
-                    f'{recipe["ingredient__name"]} '
+                    f'{recipe["ingredient__name"]}, '
                     f'{recipe["ingredient__measurement_unit"]} :   '
                     f'{recipe["total_amount"]}'
                 )
