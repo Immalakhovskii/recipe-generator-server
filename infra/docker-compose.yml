@@ -11,8 +11,7 @@ services:
       - .env
   
   backend:
-    build:
-      image: sky4p/backend_foodgram:latest
+    image: sky4p/backend_foodgram:latest
     restart: always
     command: >
       sh -c "pip3 install -r requirements.txt --no-cache-dir &&
