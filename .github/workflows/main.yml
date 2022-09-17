@@ -47,7 +47,7 @@ jobs:
     name: Deploy project on server
     needs: build_and_push_to_docker_hub
     steps:
-      - name: Executing remote ssh commands to deploy
+    - name: Executing remote ssh commands to deploy
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.HOST }}
