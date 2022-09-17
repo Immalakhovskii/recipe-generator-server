@@ -141,6 +141,7 @@ REST_client_requests.http
 # Dump files
 dump.txt
 dump.py
+workflow_dump.txt
 
 # csv_script.py
 csv_script.py
