@@ -1,6 +1,6 @@
 # Foodgram Project #
-Available at: http://84.201.140.20/
-Admin zone at: http://84.201.140.20/admin/
+Available at: http://84.201.140.20/\
+Admin zone at: http://84.201.140.20/admin/\   
 To accesses site and admin zone use Admin superuser:
 ```
 email: adminmail@mail.com
