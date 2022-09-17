@@ -118,14 +118,14 @@ class ShoppingCartViewSet(FavoriteViewSet):
 
     def create(self, request, *args, **kwargs):
         return FavoriteViewSet.create(
-            self, request, Model=ShoppingCartItem,
+            self, request, model=ShoppingCartItem,
             message='Recipe already in shopping cart',
             *args, **kwargs
         )
 
     def destroy(self, request, *args, **kwargs):
         return FavoriteViewSet.destroy(
-            self, request, Model=ShoppingCartItem,
+            self, request, model=ShoppingCartItem,
             message='Recipe not in shopping cart',
             *args, **kwargs
         )
