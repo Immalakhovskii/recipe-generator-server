@@ -114,7 +114,6 @@ class FavoriteViewSet(CreateDestroyViewSet):
 
 
 class ShoppingCartViewSet(FavoriteViewSet):
-    pagination_class = None
 
     def create(self, request, *args, **kwargs):
         return FavoriteViewSet.create(
@@ -132,6 +131,7 @@ class ShoppingCartViewSet(FavoriteViewSet):
 
 
 class DownloadShoppingList(RetrieveViewSet):
+    pagination_class = None
     permission_classes = [IsAuthenticated, ]
 
     def download_shopping_list(self, request):
