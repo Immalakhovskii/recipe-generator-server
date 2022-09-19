@@ -7,7 +7,7 @@ from .models import (Favorite, Ingredient, IngredientAmount, Recipe,
 
 class IngredientInline(admin.TabularInline):
     model = Recipe.ingredients.through
-    extra = 3
+    extra = 2
     formset = AtLeastOneFormSet
 
 
@@ -23,7 +23,7 @@ class RecipeAdmin(admin.ModelAdmin):
 
 class IngredientAdmin(admin.ModelAdmin):
     list_display = ('name', 'measurement_unit')
-    list_filter = ('name',)
+    search_fields = ('name')
 
 
 admin.site.register(Tag)
