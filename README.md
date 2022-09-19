@@ -3,7 +3,7 @@ Available at: http://foodgramm.sytes.net/
 
 Admin zone at: http://foodgramm.sytes.net/admin/
 
-To accesses:
+Use these credentials to accesses:
 ```
 # site and admin zone as Admin superuser
 email: adminmail@mail.com

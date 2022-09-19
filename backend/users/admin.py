@@ -4,7 +4,7 @@ from .models import CustomUser, Subscription
 
 
 class CustomUserAdmin(admin.ModelAdmin):
-    search_fields = ('username', 'email')
+    search_fields = ('username', 'email',)
 
 
 admin.site.register(CustomUser, CustomUserAdmin)
