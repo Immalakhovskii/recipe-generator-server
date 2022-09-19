@@ -13,7 +13,7 @@ class IngredientInline(admin.TabularInline):
 
 class RecipeAdmin(admin.ModelAdmin):
     list_display = ('name', 'author', 'favorite_count')
-    list_filter = ('name', 'author', 'tags')
+    search_fields = ('name', 'author__username', 'tags__name',)
     inlines = [IngredientInline, ]
     filter_horizontal = ('tags',)
 
