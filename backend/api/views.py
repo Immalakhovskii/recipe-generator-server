@@ -115,6 +115,7 @@ class FavoriteViewSet(CreateDestroyViewSet):
 
 
 class ShoppingCartViewSet(FavoriteViewSet):
+    pagination_class = None
 
     def create(self, request, *args, **kwargs):
         return FavoriteViewSet.create(
