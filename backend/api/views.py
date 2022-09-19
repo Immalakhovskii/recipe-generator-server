@@ -131,7 +131,6 @@ class ShoppingCartViewSet(FavoriteViewSet):
 
 
 class DownloadShoppingList(RetrieveViewSet):
-    pagination_class = None
     permission_classes = [IsAuthenticated, ]
 
     def download_shopping_list(self, request):
@@ -167,8 +166,6 @@ class DownloadShoppingList(RetrieveViewSet):
                     f'{recipe["total_amount"]}'
                 )
                 bottom_margin -= 20
-                if bottom_margin == 100:
-                    bottom_margin = 700
 
         pdf.showPage()
         pdf.save()
