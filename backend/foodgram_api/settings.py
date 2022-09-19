@@ -8,7 +8,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.getenv('SECRET_KEY', default='complex_50_symbols_key')
 DEBUG = os.getenv('DEBUG', default=False)
 
-ALLOWED_HOSTS = ['84.201.140.20', 'localhost', 'foodgramm.sytes.net']
+ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
