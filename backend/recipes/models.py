@@ -75,7 +75,7 @@ class Recipe(models.Model):
         Tag,
         related_name='tag',
         verbose_name='recipe tags',
-        blank=True
+        blank=False
     )
     name = models.CharField(
         verbose_name='recipe name',

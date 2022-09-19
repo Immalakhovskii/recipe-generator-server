@@ -84,7 +84,6 @@ class RecipeViewSet(viewsets.ModelViewSet):
             self.create_ingredients(ingredients, instance)
         if tags:
             instance.tags.set(tags)
-        instance.tags.clear()
 
 
 class FavoriteViewSet(CreateDestroyViewSet):
