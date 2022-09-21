@@ -5,19 +5,19 @@ info:
 paths:
   /api/users/:
     get:
-      operationId: Список пользователей
+      operationId: Users list
       description: ''
       parameters:
         - name: page
           required: false
           in: query
-          description: Номер страницы.
+          description: Page number
           schema:
             type: integer
         - name: limit
           required: false
           in: query
-          description: Количество объектов на странице.
+          description: Quantity of a page objects
           schema:
             type: integer
       responses:
@@ -30,27 +30,27 @@ paths:
                   count:
                     type: integer
                     example: 123
-                    description: 'Общее количество объектов в базе'
+                    description: 'The total number of objects in the database'
                   next:
                     type: string
                     nullable: true
                     format: uri
                     example: http://foodgram.example.org/api/users/?page=4
-                    description: 'Ссылка на следующую страницу'
+                    description: 'Link to the previous page'
                   previous:
                     type: string
                     nullable: true
                     format: uri
                     example: http://foodgram.example.org/api/users/?page=2
-                    description: 'Ссылка на предыдущую страницу'
+                    description: 'Link to the next page'
                   results:
                     type: array
                     items:
                       $ref: '#/components/schemas/User'
-                    description: 'Список объектов текущей страницы'
+                    description: 'Objects list of a current page'
           description: ''
       tags:
-        - Пользователи
+        - Users
     post:
       operationId: Регистрация пользователя
       description: ''
@@ -204,7 +204,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RecipeList'
-          description: 'Рецепт успешно создан'
+          description: 'Recipe successfully created'
         '400':
           description: 'Ошибки валидации в стандартном формате DRF'
           content:
