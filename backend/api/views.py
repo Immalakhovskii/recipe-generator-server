@@ -166,7 +166,7 @@ class DownloadShoppingList(ListViewSet):
                     f'{recipe["total_amount"]}'
                 )
                 bottom_margin -= 20
-            bottom_margin += 100
+            pdf.drawString(left_margin, bottom_margin=100)
 
         pdf.showPage()
         pdf.save()
