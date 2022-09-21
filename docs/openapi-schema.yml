@@ -221,8 +221,8 @@ paths:
     get:
       security:
         - Token: [ ]
-      operationId: Скачать список покупок
-      description: 'Скачать файл со списком покупок. Это может быть TXT/PDF/CSV. Важно, чтобы контент файла удовлетворял требованиям задания. Доступно только авторизованным пользователям.'
+      operationId: Download shopping list
+      description: 'Download file with shopping list. File can be TXT/PDF/CSV. Важно, чтобы контент файла удовлетворял требованиям задания. Доступно только авторизованным пользователям.'
       parameters: []
       responses:
         '200':
