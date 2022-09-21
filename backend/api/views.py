@@ -167,9 +167,9 @@ class DownloadShoppingList(ListViewSet):
                 )
                 bottom_margin -= 20
                 if bottom_margin == 100:
-                    bottom_margin = 800
                     pdf.showPage()
                     pdf.setFont(psfontname='ClearSans', size=12)
+                    bottom_margin = 740
 
         pdf.showPage()
         pdf.save()
