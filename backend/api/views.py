@@ -18,7 +18,7 @@ from rest_framework.response import Response
 from users.permissions import IsAuthor
 
 from .filters import IngredientSearchFilter, RecipeFilter
-from .mixins import CreateDestroyViewSet, RetrieveViewSet
+from .mixins import CreateDestroyViewSet, ListViewSet
 from .serializers import (IngredientSerializer, RecipeGetSerializer,
                           RecipePostSerializer, RecipeSnippetSerializer,
                           TagSerializer)
@@ -130,7 +130,7 @@ class ShoppingCartViewSet(FavoriteViewSet):
         )
 
 
-class DownloadShoppingList(RetrieveViewSet):
+class DownloadShoppingList(ListViewSet):
     permission_classes = [IsAuthenticated, ]
 
     def download_shopping_list(self, request):
@@ -166,6 +166,7 @@ class DownloadShoppingList(RetrieveViewSet):
                     f'{recipe["total_amount"]}'
                 )
                 bottom_margin -= 20
+            bottom_margin += 100
 
         pdf.showPage()
         pdf.save()
