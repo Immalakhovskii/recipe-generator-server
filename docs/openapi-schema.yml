@@ -52,7 +52,7 @@ paths:
       tags:
         - Users
     post:
-      operationId: Регистрация пользователя
+      operationId: Sign Up
       description: ''
       parameters: []
       requestBody:
