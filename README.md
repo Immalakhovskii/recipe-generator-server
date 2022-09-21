@@ -1,4 +1,4 @@
-# Foodgram Project #
+# Recipe Web Generator: Foodgram (Server edition) #
 Available at: http://foodgramm.sytes.net/
 
 Admin zone at: http://foodgramm.sytes.net/admin/
