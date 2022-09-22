@@ -110,7 +110,7 @@ DJOSER = {
     }
 }
 
-LANGUAGE_CODE = 'ru-ru'
+LANGUAGE_CODE = 'en_US'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
