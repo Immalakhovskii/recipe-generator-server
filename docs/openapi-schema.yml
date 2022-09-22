@@ -89,7 +89,7 @@ paths:
         - Tags
   /api/tags/{id}/:
     get:
-      operationId: Get tag
+      operationId: Retrieve tag
       description: ''
       parameters:
         - name: id
@@ -190,7 +190,7 @@ paths:
     post:
       security:
         - Token: []
-      operationId: Recipe create
+      operationId: Create recipe
       description: 'Available only for authorised user'
       parameters: []
       requestBody:
@@ -261,7 +261,7 @@ paths:
       tags:
         - Recipes
     patch:
-      operationId: Recipe update
+      operationId: Update recipe
       security:
         - Token: [ ]
       description: 'Available only to the author of this recipe'
@@ -350,7 +350,7 @@ paths:
       tags:
         - Favorites
     delete:
-      operationId: Delete recipe from favorite
+      operationId: Delete recipe from favorites
       description: 'Available only for authorised user'
       security:
         - Token: [ ]
@@ -616,7 +616,7 @@ paths:
                   $ref: '#/components/schemas/Ingredient'
           description: ''
       tags:
-        - Ingredietns
+        - Ingredients
   /api/ingredients/{id}/:
     get:
       operationId: Retrieve ingredient
