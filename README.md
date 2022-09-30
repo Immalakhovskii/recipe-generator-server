@@ -17,5 +17,5 @@ password: youllneverguess
 email: somemail5@mail.com
 password: youllneverguess
 ```
-#### Actions ####
-On every push the project passes Flake8 tests, new version of backend image pushes to Docker Hub. Final action is an automatic deploy to private server
+#### GitHub Actions ####
+On every push the project passes Flake8 tests and new version of backend Docker image pushes to Docker Hub. Final action is an automatic deploy of the project to private virtual machine
