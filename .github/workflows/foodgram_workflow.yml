@@ -1,4 +1,4 @@
-name: api_yamdb workflow
+name: Foodgram_server workflow
 on: [push]
 jobs:
 
