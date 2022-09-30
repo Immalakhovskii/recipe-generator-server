@@ -11,7 +11,7 @@ const AccountMenu = ({ onSignOut }) => {
       <LinkComponent
         className={styles.menuLink}
         href='/signin'
-        title='Sign In'
+        title='Log In'
       />
       <LinkComponent
         href='/signup'

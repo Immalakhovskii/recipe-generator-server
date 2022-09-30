@@ -64,7 +64,7 @@ const RecipeCreate = ({ onEdit }) => {
     <Container>
       <MetaTags>
         <title>Create Recipe</title>
-        <meta name="description" content="Recipe Web Generator - Create Recipe" />
+        <meta name="description" content="Recipe Maker: Foodgram - Create Recipe" />
         <meta property="og:title" content="Create Recipe" />
       </MetaTags>
       <Title title='Create Recipe' />

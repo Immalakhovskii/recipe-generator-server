@@ -105,7 +105,7 @@ const RecipeEdit = ({ onItemDelete }) => {
     <Container>
       <MetaTags>
         <title>Edit Recipe</title>
-        <meta name="description" content="Recipe Web Generator - Create Recipe" />
+        <meta name="description" content="Recipe Maker: Foodgram - Create Recipe" />
         <meta property="og:title" content="Edit Recipe" />
       </MetaTags>
       <Title title='Edit Recipe' />

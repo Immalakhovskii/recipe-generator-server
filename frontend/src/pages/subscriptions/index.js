@@ -33,7 +33,7 @@ const SubscriptionsPage = () => {
     <Container>
       <MetaTags>
         <title>My Subscriptions</title>
-        <meta name="description" content="Recipe Web Generator - My Subscriptions" />
+        <meta name="description" content="Recipe Maker: Foodgram - My Subscriptions" />
         <meta property="og:title" content="My Subscriptions" />
       </MetaTags>
       <Title

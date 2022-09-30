@@ -46,7 +46,7 @@ const Favorites = ({ updateOrders }) => {
     <Container>
       <MetaTags>
         <title>Favorites</title>
-        <meta name="description" content="Recipe Web Generator - Favorites" />
+        <meta name="description" content="Recipe Maker: Foodgram - Favorites" />
         <meta property="og:title" content="Favorites" />
       </MetaTags>
       <div className={styles.title}>

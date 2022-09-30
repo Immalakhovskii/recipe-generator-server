@@ -79,7 +79,7 @@ const UserPage = ({ updateOrders }) => {
     <Container className={styles.container}>
       <MetaTags>
         <title>{user ? `${user.first_name} ${user.last_name}` : 'User Page'}</title>
-        <meta name="description" content={user ? `Recipe Web Generator - ${user.first_name} ${user.last_name}` : 'Recipe Web Generator - User Page'} />
+        <meta name="description" content={user ? `Recipe Maker: Foodgram - ${user.first_name} ${user.last_name}` : 'Recipe Maker: Foodgram - User Page'} />
         <meta property="og:title" content={user ? `${user.first_name} ${user.last_name}` : 'User Page'} />
       </MetaTags>
       <div className={styles.title}>

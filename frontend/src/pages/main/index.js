@@ -47,7 +47,7 @@ const HomePage = ({ updateOrders }) => {
     <Container>
       <MetaTags>
         <title>Recipes</title>
-        <meta name="description" content="Recipe Web Generator - Recipes" />
+        <meta name="description" content="Recipe Maker: Foodgram - Recipes" />
         <meta property="og:title" content="Recipes" />
       </MetaTags>
       <div className={styles.title}>

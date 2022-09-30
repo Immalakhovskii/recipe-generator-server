@@ -15,7 +15,7 @@ const SignUp = ({ onSignUp }) => {
     <Container>
       <MetaTags>
         <title>Sign Up</title>
-        <meta name="description" content="Recipe Web Generator - Sign Up" />
+        <meta name="description" content="Recipe Maker: Foodgram - Sign Up" />
         <meta property="og:title" content="Регистрация" />
       </MetaTags>
       <Title title='Sign Up' />

@@ -37,7 +37,7 @@ const Cart = ({ updateOrders, orders }) => {
     <Container className={styles.container}>
       <MetaTags>
         <title>Shopping Cart</title>
-        <meta name="description" content="Recipe Web Generator - Shopping Cart" />
+        <meta name="description" content="Recipe Maker: Foodgram - Shopping Cart" />
         <meta property="og:title" content="Shopping Cart" />
       </MetaTags>
       <div className={styles.cart}>

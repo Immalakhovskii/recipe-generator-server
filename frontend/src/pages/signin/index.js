@@ -14,11 +14,11 @@ const SignIn = ({ onSignIn }) => {
     {authContext && <Redirect to='/recipes' />}
     <Container>
       <MetaTags>
-        <title>Sign In</title>
-        <meta name="description" content="Recipe Web Generator - Sign In" />
-        <meta property="og:title" content="Войти на сайт" />
+        <title>Log In</title>
+        <meta name="description" content="Recipe Maker: Foodgram - Log In" />
+        <meta property="og:title" content="Log In" />
       </MetaTags>
-      <Title title='Sign In' />
+      <Title title='Log In' />
       <Form
         className={styles.form}
         onSubmit={e => {
@@ -45,7 +45,7 @@ const SignIn = ({ onSignIn }) => {
           type='submit'
           className={styles.button}
         >
-          Sign In
+          Log In
         </Button>
       </Form>
     </Container>
