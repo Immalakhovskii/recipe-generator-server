@@ -21,4 +21,4 @@ password: youllneverguess
 #### GitHub Actions ####
 ![Workflow badge](https://github.com/Immalakhovskii/recipe-maker-server/actions/workflows/foodgram_workflow.yml/badge.svg?event=push)  
 
-On every push the project passes Flake8 tests and new version of backend Docker image pushes to Docker Hub. Final action is an automatic deploy of the project to private virtual machine
+On every push the project passes Flake8 tests and updated version of backend Docker image pushes to Docker Hub. Final action is an automatic deploy of the project to private virtual machine
