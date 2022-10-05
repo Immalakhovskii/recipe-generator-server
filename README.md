@@ -10,15 +10,15 @@ Foodgram is a site that stores, shows and filters recipes from different authors
 Foodgram available at: http://foodgramm.sytes.net/, admin zone: http://foodgramm.sytes.net/admin/
 In its database it has 10 recipes, 48 ungredients, 5 tags and 6 users. New ingredients and tags can be added only in admin zone, recipes and users can be created and updated via general Foodgram interface
 ```
-# log in to site and admin zone as Admin superuser
-email: adminmail@mail.com
-password: youllneverguess
-
-# log in to site as regular user Pasha
+# create you own account or log in as regular user Pasha
 email: somemail5@mail.com
 password: youllneverguess
 ```
+#### Admin Zone ####
+Admin zone has some special features: 
+- Recipes can be searched by name, author username and tags; ingredients can be searched by name
+- Recipe model has ingredients ManyToManyField with throgh property so recipe creation page in admin zone has IngredientInline with formset restriction so admin won't be able to create recipe without ingredients
+*If you need access to admin zone contact @immalakhovskii or try out Foodgram (Local Edition)*
 #### GitHub Actions ####
 ![Workflow badge](https://github.com/Immalakhovskii/recipe-maker-server/actions/workflows/foodgram_workflow.yml/badge.svg?event=push)  
-
 On every push the project passes Flake8 tests and updated version of backend Docker image pushes to Docker Hub. Final action is an automatic deploy of the project to private virtual machine
