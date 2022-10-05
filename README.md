@@ -18,6 +18,7 @@ password: youllneverguess
 Admin zone has some special features: 
 - Recipes can be searched by name, author username and tags; ingredients can be searched by name
 - Recipe model has ingredients ManyToManyField with throgh property so recipe creation page in admin zone has IngredientInline with formset restriction so admin won't be able to create recipe without ingredients
+
 *If you need access to admin zone contact @immalakhovskii or try out Foodgram (Local Edition)*
 #### GitHub Actions ####
 ![Workflow badge](https://github.com/Immalakhovskii/recipe-maker-server/actions/workflows/foodgram_workflow.yml/badge.svg?event=push)  
