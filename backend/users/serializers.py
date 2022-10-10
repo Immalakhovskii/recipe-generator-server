@@ -27,18 +27,14 @@ class CustomUserSerializer(UserSerializer):
             subscriber=request.user, subscription=obj).exists()
 
 
-class SubscriptionSerializer(serializers.ModelSerializer):
+class SubscriptionSerializer(CustomUserSerializer):
     recipes = serializers.SerializerMethodField()
-    is_subscribed = serializers.SerializerMethodField()
     recipes_count = serializers.SerializerMethodField()
 
     class Meta:
         model = CustomUser
-        fields = ('id', 'username', 'first_name', 'last_name',
+        fields = ('id', 'email', 'username', 'first_name', 'last_name',
                   'is_subscribed', 'recipes', 'recipes_count')
-
-    def get_is_subscribed(self, obj):
-        return CustomUserSerializer.get_is_subscribed(self, obj)
 
     def get_recipes_count(self, obj):
         return obj.author.all().count()
