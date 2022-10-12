@@ -28,19 +28,9 @@ class SubscriptionViewSet(ListCreateDestroyViewSet):
     def get_object(self):
         return get_object_or_404(CustomUser, id=self.kwargs['user_id'])
 
-    def list(self, request, *args, **kwargs):
-        queryset = request.user.subscriber.all()
-        subscriptions_queryset = []
-        if queryset:
-            for query in queryset:
-                subscriptions_queryset.append(query.subscription)
-
-        page = self.paginate_queryset(subscriptions_queryset)
-        if page is not None:
-            serializer = self.get_serializer(page, many=True)
-            return self.get_paginated_response(serializer.data)
-        serializer = self.get_serializer(subscriptions_queryset, many=True)
-        return Response(serializer.data)
+    def get_queryset(self):
+        queryset = self.request.user.subscriber.all()
+        return [query.subscription for query in queryset]
 
     def create(self, request, *args, **kwargs):
         instance = self.get_object()
